@@ -8,10 +8,43 @@
 </head>
 <body>
     <h1>Node Arduino</h1>
-
+    <canvas id="myChart"></canvas>
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
     <script src="/socket.io/socket.io.js" charset="utf-8"></script>
     <script>    
         const socket = io();
+        let counter = 0;
+        socket.on('arduino:data', function(dataSerial){
+            myChart.data.labels.push(counter);
+            myChart.data.datasets.forEach(dataset => {
+                dataset.data.push(dataSerial.value)
+            });
+            counter++;
+            myChart.update();
+        })
+
+        const ctx = document.getElementById('myChart').getContext('2d');
+        const myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['Serial'],
+                datasets: [{
+                    labels: ['Serial'],
+                    backgroundColor: 'rgb(52,73,94)',
+                    borderColor: 'rgb(41,128.185)',
+                    data: []
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
     </script>
 </body>
 </html>
