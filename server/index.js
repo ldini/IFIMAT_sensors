@@ -27,9 +27,9 @@ port.pipe(parser)
 
 //parser.on('data', console.log) // mostramos los datos simplificado
 parser.on('data',function(data){
-    console.log(data);
+    console.log(JSON.parse(data));
     io.emit('arduino:data',{
-        value: data
+        value: [JSON.parse(data).sensor1,JSON.parse(data).sensor2,JSON.parse(data).sensor3,JSON.parse(data).sensor4]
     })
 })
 
