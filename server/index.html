@@ -48,32 +48,23 @@
     <script src="/socket.io/socket.io.js" charset="utf-8"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     
-    <script src="path/to/chartjs/dist/chart.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/hammerjs@2.0.8"></script>
-    <script src="path/to/chartjs-plugin-zoom/dist/chartjs-plugin-zoom.min.js"></script>
+    <script src="chartjs-plugin-zoom.min.js"></script>
     
     <script>    
         const socket = io();
         let counter = 0;
-        socket.on('arduino:data', function(dataSerial){
-            myChart1.data.labels.push(counter);
-            myChart2.data.labels.push(counter);
-            myChart3.data.labels.push(counter);
-            myChart4.data.labels.push(counter);
+        socket.on('arduino:data', function(data){
+            myChart1.data.labels = data.map(v => v.time);
+            myChart2.data.labels = data.map(v => v.time);
+            myChart3.data.labels = data.map(v => v.time);
+            myChart4.data.labels = data.map(v => v.time);
             // myChart5.data.labels.push(counter);
 
-            myChart1.data.datasets.forEach(dataset => {
-                dataset.data.push(dataSerial.value[0])
-            });
-            myChart2.data.datasets.forEach(dataset => {
-                dataset.data.push(dataSerial.value[1])
-            });
-            myChart3.data.datasets.forEach(dataset => {
-                dataset.data.push(dataSerial.value[2])
-            });
-            myChart4.data.datasets.forEach(dataset => {
-                dataset.data.push(dataSerial.value[3])
-            });
+            myChart1.data.datasets[0].data = data.map(v => v.sensor1);
+            myChart2.data.datasets[0].data = data.map(v => v.sensor2);
+            myChart3.data.datasets[0].data = data.map(v => v.sensor3);
+            myChart4.data.datasets[0].data = data.map(v => v.sensor4);
             // myChart5.data.datasets.forEach(dataset => {
             //     dataset.data.push(dataSerial.value)
             // });
