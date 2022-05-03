@@ -13,6 +13,14 @@ socket.on('arduino:data', function(data){
     myChart4.data.datasets[0].data = data.map(v => v.sensor4);
     myChart5.data.datasets[0].data = data.map(v => v.sensor4);
 
+    console.log(data.map(v => v.sensor1)[0]);
+    myChart1.data.datasets[0].label = "SENSOR 1: " + data.map(v => v.sensor1)[0] + " °C";
+    myChart2.data.datasets[0].label = "SENSOR 2: " + data.map(v => v.sensor2)[0] + " °C";
+    myChart3.data.datasets[0].label = "SENSOR 3: " + data.map(v => v.sensor3)[0] + " °C";
+    myChart4.data.datasets[0].label = "SENSOR 4: " + data.map(v => v.sensor4)[0] + " °C";
+
+    myChart5.data.labels[0] =  data.map(v => v.sensor4)[0] + "volts";
+
     counter++;
     myChart1.update();
     myChart2.update();
@@ -107,7 +115,7 @@ const myChart3 = new Chart(ctx3, {
     data: {
         labels: ['TIEMPO'],
         datasets: [{
-            label: "SENSOR 3",
+            label: "SENSOR 2",
             backgroundColor: 'rgb(79, 187, 182  ,0.2)',
             borderColor: 'rgb(79, 187, 182  ,0.9)',
             fill:true,
@@ -185,11 +193,11 @@ const myChart5 = new Chart(ctx5, {
     data: {
         labels: [''],
         datasets: [{
-            label: "VOLTAJE",
-            backgroundColor: 'rgb(187, 79, 156 ,0.2)',
-            borderColor: 'rgb(187, 79, 156 ,0.9)',
+            label: "",
+            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+            borderColor: 'rgb(255, 99, 132)',
             fill:true,
-            data: [0]
+            data: []
         }]
     },
     options: {
