@@ -5,22 +5,20 @@ socket.on('arduino:data', function(data){
     myChart2.data.labels = data.map(v => v.time);
     myChart3.data.labels = data.map(v => v.time);
     myChart4.data.labels = data.map(v => v.time);
-    // myChart5.data.labels.push(counter);
+    myChart4.data.labels = data.map(v => v.time);
 
     myChart1.data.datasets[0].data = data.map(v => v.sensor1);
     myChart2.data.datasets[0].data = data.map(v => v.sensor2);
     myChart3.data.datasets[0].data = data.map(v => v.sensor3);
     myChart4.data.datasets[0].data = data.map(v => v.sensor4);
-    // myChart5.data.datasets.forEach(dataset => {
-    //     dataset.data.push(dataSerial.value)
-    // });
+    myChart5.data.datasets[0].data = data.map(v => v.sensor4);
 
     counter++;
     myChart1.update();
     myChart2.update();
     myChart3.update();
     myChart4.update();
-    // myChart5.update();
+    myChart5.update();
 })
 
 const ctx1 = document.getElementById('myChart1').getContext('2d');
@@ -181,25 +179,29 @@ const myChart4 = new Chart(ctx4, {
     }
 });
 
-// const ctx5 = document.getElementById('myChart5').getContext('2d');
-// const myChart5 = new Chart(ctx5, {
-//     type: 'line',
-//     data: {
-//         labels: ['TIEMPO'],
-//         datasets: [{
-//             label: "VOLTAJE",
-//             backgroundColor: 'rgb(187, 79, 156 ,0.2)',
-//             borderColor: 'rgb(187, 79, 156 ,0.9)',
-//             fill:true,
-//             data: []
-//         }]
-//     },
-//     options: {
-//         scales: {
-//             y: {
-//                 beginAtZero: true
-//             }
-//         },
-//         responsive: false
-//     }
-// });
+const ctx5 = document.getElementById('myChart5').getContext('2d');
+const myChart5 = new Chart(ctx5, {
+    type: 'bar',
+    data: {
+        labels: [''],
+        datasets: [{
+            label: "VOLTAJE",
+            backgroundColor: 'rgb(187, 79, 156 ,0.2)',
+            borderColor: 'rgb(187, 79, 156 ,0.9)',
+            fill:true,
+            data: [0]
+        }]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true,
+                max:50,
+                min:0,
+                beginAtZero: false,
+                position: 'right'
+            }
+        },
+        responsive: false
+    }
+});

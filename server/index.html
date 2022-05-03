@@ -13,15 +13,24 @@
 </head>
 <body class="bg-gray-200">
     <h1><img style = "width: 200px; height: 50px;" src = "/images/LogoIfimatBlancoWeb.png"></h1>
-    
+
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-8">
-                <h1>IFIMAT</h1>
             </div>
             <!-- Solucionar canvas voltaje -->
             <div class="col-md-4">
-                <!-- <canvas id="myChart5" width="100" height="100"></canvas> -->
+                <button target="_blank" name="redirect" class="btn btn-info" onClick="redirect()">
+                    Descargar
+                    </button>
+                        <script type="text/javascript">
+                        function redirect()
+                        {
+                            window.location.href="/export";
+                            // window.location.href="/"
+                        }
+                        </script>
+                 <canvas id="myChart5" width="100" height="100"></canvas> 
             </div>
         </div>
         <div class="row">
