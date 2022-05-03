@@ -7,6 +7,8 @@ const app = express();
 const server = http.createServer(app);
 const io = socketIo(server);
 
+app.use(express.static("public"));
+
 io.on('connection', function(socket){
     console.log('un nuevo cliente conectado');
 })
