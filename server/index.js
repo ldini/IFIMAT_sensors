@@ -45,10 +45,6 @@ SerialPort.list().then(function(ports){
     port.pipe(parser)
 
 
-
-
-
-
 let data = [];
 
 
