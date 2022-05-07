@@ -23,14 +23,31 @@ app.get('/chartjs-plugin-zoom.min.js', (req,res,next) => {
 
 
 const { SerialPort, ReadlineParser } = require('serialport') // Serial port
-const port = new SerialPort({ path:'COM9', baudRate:9600 }) // config serial port
-const parser = new ReadlineParser() // nuevo puerto
+let pathPort = '';
 
-port.on('open', () => { //preguntamos si esta conectado al puerto
-    console.log('Puerto Conectado')
-})
+SerialPort.list().then(function(ports){
+  
+  ports.forEach(function(port){
+    console.log("Port: ", port);
+    if(port.manufacturer.includes('Arduino'))
+        pathPort = port.path
+  })
+  console.log('ArdinoPort: ' + pathPort);
+}).then(function(){
+    let port = new SerialPort({ path: pathPort, baudRate:9600 }) // config serial port
 
-port.pipe(parser)
+    const parser = new ReadlineParser() // nuevo puerto
+    
+    port.on('open', () => { //preguntamos si esta conectado al puerto
+        console.log('Puerto Conectado')
+    })
+    
+    port.pipe(parser)
+
+
+
+
+
 
 let data = [];
 
@@ -59,3 +76,5 @@ port.on('err',console.log) // mostramos error
 server.listen(3000, () => {
     console.log('server on port ',3000);
 })
+
+});
